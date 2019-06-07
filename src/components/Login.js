@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import login from '../assets/login.css';
 
 class Login extends Component {
@@ -11,17 +11,26 @@ class Login extends Component {
           formdata: {
             loginName : "",
             password: ""
-        }
+        },
+       // profileId:props.match.params.profileIdParam
         }
       }
-    
+    componentWillMount(){
+        console.log(this.props)
+        const {profileId}=this.state;
+         console.log(profileId);
+    }
       login=(event)=>{
+        const{profileId}=this.state;
         event.preventDefault();
           const {formdata}=this.state;
         //   console.log(this.state.logindata, this.state.logindata[0],this.state.logindata[1])
           return new Promise((resolve, reject) => {
-            axios.post('http://10.117.189.210:8090/app/login',formdata).then(function (response) {
+            axios.post('http://10.117.189.210:8090/app/login',formdata).then( (response)=> {
               resolve(response);
+              swal("Login Successfull!","Done", "success")
+              console.log(response.data.profileId)
+              this.props.history.push('/listof/' + response.data.profile.profileId);
             }).catch(function (error) {
               reject(error);
             });

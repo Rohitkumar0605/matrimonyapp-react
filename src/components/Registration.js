@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-// import swal from 'sweetalert';
+ import swal from 'sweetalert';
 import register from '../assets/register.css';
 
 class Register extends Component {
@@ -29,10 +29,14 @@ class Register extends Component {
           const {regdata}=this.state;
         //   console.log(this.state.logindata, this.state.logindata[0],this.state.logindata[1])
           return new Promise((resolve, reject) => {
-            axios.post('http://10.117.189.210:8090/app/createProfile',regdata).then(function (response) {
+            axios.post('http://10.117.189.210:8090/app/createProfile',regdata).then( (response) =>{
               resolve(response);
+              console.log(response.data.profile.profileId);
+              swal("Login Successfull!","Done", "success")
+              this.props.history.push('/login');
             }).catch(function (error) {
               reject(error);
+             
             });
           }); 
       }
