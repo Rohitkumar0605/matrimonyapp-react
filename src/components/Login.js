@@ -26,7 +26,7 @@ class Login extends Component {
           const {formdata}=this.state;
         //   console.log(this.state.logindata, this.state.logindata[0],this.state.logindata[1])
           return new Promise((resolve, reject) => {
-            axios.post('http://10.117.189.210:8090/app/login',formdata).then( (response)=> {
+            axios.post('http://10.117.189.210:9090/app/login',formdata).then( (response)=> {
               resolve(response);
               swal("Login Successfull!","Done", "success")
               console.log(response.data.profileId)
@@ -46,14 +46,18 @@ class Login extends Component {
     return (
       <div className="login ">
           <h1 align="center" color="white">Matrimonal Login Form</h1>
-          <form className='container'>
+          <form className='needs-validation container'>
               <div className="form-group">
                   <label>User Name:</label>
-                  <input type="text" className="form-control mb-2"  placeholder="User Name" name="loginName" onChange={this.loginHandler}/>
+                  <input type="text" className="form-control mb-2"  placeholder="User Name" name="loginName" onChange={this.loginHandler} required/>
+                  <div class="valid-feedback">Valid.</div>
+                   <div class="invalid-feedback">Please fill out this field.</div>
               </div>
               <div className="form-group">
                   <label>Last Name:</label>
-                  <input type="password" className="form-control mb-2"  placeholder="Password" name="password" onChange={this.loginHandler}/>
+                  <input type="password" className="form-control mb-2"  placeholder="Password" name="password" onChange={this.loginHandler} required/>
+                  <div class="valid-feedback">Valid.</div>
+                  <div class="invalid-feedback">Please fill out this field.</div>
               </div> 
               <div>
                   <button onClick={this.login}>Login</button>

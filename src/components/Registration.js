@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
  import swal from 'sweetalert';
 import register from '../assets/register.css';
-
+import {BrowserRouter,Route, Switch, Link} from 'react-router-dom';
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -29,13 +29,14 @@ class Register extends Component {
           const {regdata}=this.state;
         //   console.log(this.state.logindata, this.state.logindata[0],this.state.logindata[1])
           return new Promise((resolve, reject) => {
-            axios.post('http://10.117.189.210:8090/app/createProfile',regdata).then( (response) =>{
+            axios.post('http://10.117.189.210:9090/app/createProfile',regdata).then( (response) =>{
               resolve(response);
               console.log(response.data.profile.profileId);
-              swal("Login Successfull!","Done", "success")
+              swal("Registrartion Successfull!","Done", "success")
               this.props.history.push('/login');
             }).catch(function (error) {
               reject(error);
+              console.log(error);
              
             });
           }); 
@@ -101,6 +102,7 @@ class Register extends Component {
     <input className="form-control mb-2" type="date" id="lname" name="dobDto" placeholder="enter DOB" onChange={this.regHandler}/>
 
    <br/> <button onClick={this.register}>Register</button>
+   <Link to="/login"><button>Login</button></Link>
   </form>
 </div>
 

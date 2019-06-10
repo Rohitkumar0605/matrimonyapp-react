@@ -5,6 +5,7 @@ import swal from 'sweetalert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './Nav';
 import list from '../assets/list.css';
+import menu from '../assets/menu.png';
 class Accepted extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class Accepted extends Component {
   getData = () => {
       const {profileId}=this.state;
     return new Promise((resolve, reject) => {
-      axios.get(`http://10.117.189.210:8090/app/getAcceptedProfile/${profileId}`).then( (response)=> {
+      axios.get(`http://10.117.189.210:9090/app/getAcceptedProfile/${profileId}`).then( (response)=> {
         resolve(response);
         this.props.history.push('/accepted/' + profileId);
       }).catch(function (error) {
@@ -52,7 +53,7 @@ class Accepted extends Component {
     return(
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light" >
-  
+        <img src={menu} width="40px" height="40px"/>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -71,6 +72,7 @@ class Accepted extends Component {
      <li className="nav-item">
      <b><i><button onClick={this.rejectedlist} className="btn btn-link" >Rejected profiles</button></i></b>
       </li>
+      <button className="btn btn-link"><Link to="/dashboard">Logout</Link></button>
     </ul>
     <form className="form-inline my-2 my-lg-0">
       <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>

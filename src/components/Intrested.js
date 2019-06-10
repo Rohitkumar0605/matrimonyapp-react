@@ -7,13 +7,20 @@ import Nav from './Nav'
 import accept from '../assets/accept.png';
 import decline from '../assets/decline.png';
 import list from '../assets/list.css';
+import menu from '../assets/menu.png';
 
 class Intrested extends Component {
   constructor(props) {
     super(props);
     this.state = {
       acceptedlist: [], 
-      profileId:props.match.params.profileIdParam
+      profileId:props.match.params.profileIdParam,
+      mat:{
+        profileId:props.match.params.profileIdParam,
+        actionProfileId:17,
+        actionProfileName:"chitra",
+        action:"intrest"
+      }
      
     }
   }
@@ -28,7 +35,7 @@ class Intrested extends Component {
   getData = () => {
     const {profileId}=this.state;
     return new Promise((resolve, reject) => {
-      axios.get(`http://10.117.189.210:8090/app/getInterestedProfile/${profileId}`).then(function (response) {
+      axios.get(`http://10.117.189.210:9090/app/getInterestedProfile/${profileId}`).then(function (response) {
         resolve(response);
       }).catch(function (error) {
         reject(error);
@@ -51,12 +58,34 @@ class Intrested extends Component {
     const{profileId}=this.state;
     this.props.history.push('/rejected/' + profileId);
   }
+  accept=()=>{
+    const{mat}=this.state;
+    return new Promise((resolve, reject) => {
+      axios.put(`http://10.117.189.210:9090/app/updateAcceptReject`,mat).then(function (response) {
+        resolve(response);
+        swal("accepted Successfully!","Done", "success")
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
+  reject=()=>{
+    const{mat}=this.state;
+    return new Promise((resolve, reject) => {
+      axios.put(`http://10.117.189.210:9090/app/updateAcceptReject`,mat).then(function (response) {
+        resolve(response);
+        swal("rejected the interest!","Done", "success")
+      }).catch(function (error) {
+        reject(error);
+      });
+    });
+  }
   
    render() {
     return(
       <div>
        <nav className="navbar navbar-expand-lg navbar-light bg-light" >
-  <a className="navbar-brand" href="#">Navbar</a>
+       <img src={menu} width="40px" height="40px"/>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
@@ -75,6 +104,7 @@ class Intrested extends Component {
      <li className="nav-item">
      <b><i><button onClick={this.rejectedlist} className="btn btn-link" >Rejected profiles</button></i></b>
       </li>
+      <button className="btn btn-link"><Link to="/dashboard">Logout</Link></button>
     </ul>
     <form className="form-inline my-2 my-lg-0">
       <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -93,7 +123,7 @@ class Intrested extends Component {
                                     <tr key={i}>
                                        <td>{item.interestedProfileId}</td>
                                         <td>{item.interestedProfileName}</td>
-                                        <td><button type="button" ><img width="50px" height="50px" src={accept}/></button></td>
+                                        <td><button type="button" onClick={this.accept}><img width="50px" height="50px" src={accept}/></button></td>
                                         <td><button type="button"  ><img  width="50px" height="50px" src={decline}/></button></td>
                                     </tr>
                                     
