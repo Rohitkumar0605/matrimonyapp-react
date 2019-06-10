@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {BrowserRouter,Link} from 'react-router-dom';
-import swal from 'sweetalert';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './Nav';
 import list from '../assets/list.css';

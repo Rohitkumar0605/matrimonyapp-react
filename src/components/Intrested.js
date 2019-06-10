@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {BrowserRouter,Link} from 'react-router-dom';
-import swal from 'sweetalert';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from './Nav'
 import accept from '../assets/accept.png';
@@ -63,7 +63,7 @@ class Intrested extends Component {
     return new Promise((resolve, reject) => {
       axios.put(`http://10.117.189.210:9090/app/updateAcceptReject`,mat).then(function (response) {
         resolve(response);
-        swal("accepted Successfully!","Done", "success")
+        
       }).catch(function (error) {
         reject(error);
       });
@@ -74,7 +74,7 @@ class Intrested extends Component {
     return new Promise((resolve, reject) => {
       axios.put(`http://10.117.189.210:9090/app/updateAcceptReject`,mat).then(function (response) {
         resolve(response);
-        swal("rejected the interest!","Done", "success")
+       
       }).catch(function (error) {
         reject(error);
       });
